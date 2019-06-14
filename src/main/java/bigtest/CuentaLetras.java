@@ -29,7 +29,7 @@ public class CuentaLetras extends Configured implements Tool {
 				System.getProperty("user.dir"));
 
 		System.out.println("Dude, this is working");
-		File tmpDir = new File("animals.txt");
+		File tmpDir = new File("animals.json");
 		boolean exists = tmpDir.exists();
 		System.out.println(exists);
 
@@ -37,9 +37,9 @@ public class CuentaLetras extends Configured implements Tool {
 
 	    System.out.println(args[0]);
 	    // Use TextInputFormat, the default unless job.setInputFormatClass is used
-	    FileInputFormat.addInputPath(job, new Path("animals.txt"));
+	    FileInputFormat.addInputPath(job, new Path("animals.json"));
 		System.out.println(args[0]);
-	    FileOutputFormat.setOutputPath(job, new Path("/home/oscar/Desktop/IC 1S-19/output3"));
+	    FileOutputFormat.setOutputPath(job, new Path("/home/erick/Desktop/IC 1S-19/output5"));
 		System.out.println(args[0]);
 	    job.setMapperClass(LetrasMaper.class);
 	    job.setReducerClass(LetrasReducer.class);
