@@ -34,14 +34,14 @@ public class CuentaLetras extends Configured implements Tool {
 		System.out.println("Working Directory = " +
 				System.getProperty("user.dir"));
 
-		//String outputDir = System.getProperty("user.dir") + "/output/new";
-		String outputDir = "/user/cloudera/Oskr-erick/output";
+		String outputDir = System.getProperty("user.dir") + "/output/new5";
+		//String outputDir = "/user/cloudera/Oskr-erick/output";
 
 
 	    //System.out.println(args[0]);
 	    // Use TextInputFormat, the default unless job.setInputFormatClass is used
-	    //FileInputFormat.addInputPath(job, new Path("resources/small-log.json"));
-		FileInputFormat.addInputPath(job, new Path("/user/cloudera/Oskr-erick/actions-logs.json"));
+	    FileInputFormat.addInputPath(job, new Path("resources/small-log.json"));
+		//FileInputFormat.addInputPath(job, new Path("/user/cloudera/Oskr-erick/actions-logs.json"));
 		//System.out.println(args[0]);
 	    FileOutputFormat.setOutputPath(job, new Path(outputDir));
 		//System.out.println(args[0]);
