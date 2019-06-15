@@ -4,7 +4,6 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.security.SaslOutputStream;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,7 +22,10 @@ public class LetrasMaper extends Mapper<LongWritable, Text, Text, IntWritable> {
             for(int i=0;i<tuple.length; i++){
                 System.out.println(tuple[i]);
                 JSONObject obj = new JSONObject(tuple[i]);
-                animal = obj.getString("animal");
+
+                animal = obj.getString("user_id");
+
+                //animal = embedded.getString("section");
                 context.write(new Text(animal), one);
             }
         }catch(JSONException e){
