@@ -4,11 +4,9 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.json.JSONException;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 import java.io.IOException;
 
@@ -20,24 +18,16 @@ public class LetrasMaper extends Mapper<LongWritable, Text, Text, IntWritable> {
             throws IOException, InterruptedException
     {
         try{
-            JSONParser parser = new JSONParser();
-            JSONArray array =  (JSONArray)parser.parse(lineText.toString());
+            JSONArray array =  new JSONArray(lineText.toString());
             String animal;
-            String line = lineText.toString();
-            String[] tuple = line.split("\\n");
 
+            for(int i=0;i<array.length(); i++){
+                JSONObject obj = array.getJSONObject(i);//new JSONObject(tuple[i]);
+                animal = obj.getString("time");
+                System.out.println(animal);
 
-
-            for(int i=0;i<50; i++){
-                JSONObject obj = (JSONObject) array.get(i);//new JSONObject(tuple[i]);
-
-                animal = (String) obj.get("time");
-
-                //animal = embedded.getString("section");
                 context.write(new Text(animal), one);
             }
-        }catch(ParseException e){
-            e.printStackTrace();
         } catch (Exception e){
             System.out.println(e.toString());
         }
