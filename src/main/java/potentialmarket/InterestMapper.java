@@ -1,4 +1,4 @@
-package DurationValidity;
+package potentialmarket;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -7,17 +7,16 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
-public class ValidityMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class InterestMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     private final static IntWritable one = new IntWritable(1);
 
     public void map(LongWritable offset, Text lineText, Context context) {
         try{
             JSONArray array =  new JSONArray(lineText.toString());
-            JSONObject action, utm;
-            String date, description, campaign;
+            JSONObject action;
+            String campaign;
+            int userId;
 
             String animal;
 
@@ -26,11 +25,9 @@ public class ValidityMapper extends Mapper<LongWritable, Text, Text, IntWritable
                 action = entry.getJSONObject("action");
                 if (!action.has("utm"))
                     continue;
-
-                campaign = action.getJSONObject("utm").getString("campain");
-                date = entry.getString("time").split(" ")[0];
-                description = action.getString("description");
-                animal = campaign + " " + date + " " + description;
+                userId = entry.getInt("user_id");
+                campaign = action.getJSONObject("utm").getString("campaign");
+                animal = campaign + "," + userId + ",";
                 context.write(new Text(animal), one);
             }
         } catch (Exception e){

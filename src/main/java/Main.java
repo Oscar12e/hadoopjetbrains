@@ -2,10 +2,12 @@
 
  */
 
-import DurationValidity.ValidityCombiner;
+import durationvalidity.InteractionCombiner;
 import bigtest.CuentaLetras;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+import potentialmarket.InterestCombiner;
+import valuablevalidity.ValueCombiner;
 
 public class Main {
 
@@ -14,10 +16,12 @@ public class Main {
                 System.getProperty("user.dir") + "/output");
         Tool tool = null;
 
-        if (args[3].equals("-v"))
-            tool = new ValidityCombiner();
-        else if (args[3].equals("-c"))
-            tool = new CuentaLetras();
+        if (args[3].equals("-t")) //Es el tiempo valido?
+            tool = new InteractionCombiner();
+        else if (args[3].equals("-p")) //Mercado potencial
+            tool = new InterestCombiner();
+        else if (args[3].equals("-v")) //Mercado potencial
+            tool = new ValueCombiner();
         else{
             System.out.println("Non valid command.");
             return;

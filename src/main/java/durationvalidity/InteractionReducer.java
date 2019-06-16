@@ -1,4 +1,4 @@
-package DurationValidity;
+package durationvalidity;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -6,7 +6,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
-public class ValidityReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
+public class InteractionReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
     public void reduce(Text word, Iterable<IntWritable> counts, Context context)
             throws IOException, InterruptedException {
