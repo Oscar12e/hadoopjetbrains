@@ -19,12 +19,12 @@ public class LetrasMaper extends Mapper<LongWritable, Text, Text, IntWritable> {
     {
         try{
             JSONArray array =  new JSONArray(lineText.toString());
+
             String animal;
 
             for(int i=0;i<array.length(); i++){
                 JSONObject obj = array.getJSONObject(i);//new JSONObject(tuple[i]);
-                animal = obj.getString("time");
-                System.out.println(animal);
+                animal = obj.getString("gender");
 
                 context.write(new Text(animal), one);
             }

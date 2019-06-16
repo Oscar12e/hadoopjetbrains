@@ -9,7 +9,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-import java.io.File;
 
 
 public class CuentaLetras extends Configured implements Tool { 
@@ -18,33 +17,30 @@ public class CuentaLetras extends Configured implements Tool {
 		System.out.println("Working Directory = " +
 				System.getProperty("user.dir") + "/output");
 		int res = ToolRunner.run(new CuentaLetras(), args);
-		System.out.println("Res ONe: " + res);
-		System.out.println("Working Directory = " +
-				System.getProperty("user.dir") + "/output");
 
-		File f = new File("/user/cloudera/Oskr-erick/actions-logs.json");
-
-		System.out.println("The path exits: " + f.exists());
 	    System.exit(res);
 	}
 
 	public int run(String[] args) throws Exception {
-	    Job job = Job.getInstance(getConf(), "Contando Letras");
+	    Job job = Job.getInstance(getConf(), "Contando De Prueba");
 	    job.setJarByClass(this.getClass());
 		System.out.println("Working Directory = " +
 				System.getProperty("user.dir"));
 
-		String outputDir = System.getProperty("user.dir") + "/output/new5";
-		//String outputDir = "/user/cloudera/Oskr-erick/output";
+		//String outputDir = System.getProperty("user.dir") + "/output/new5";
+		//String outputDir = "/user/cloudera/Oskr-erick/output5/o";
+		//String inputDir = "/user/cloudera/Oskr-erick/small-log.json";
 
+		//Args -- Para la revisión toca usar este
+		String inputDir = args[0];
+		String outputDir = args[1];
 
 	    //System.out.println(args[0]);
 	    // Use TextInputFormat, the default unless job.setInputFormatClass is used
-	    FileInputFormat.addInputPath(job, new Path("resources/small-log.json"));
-		//FileInputFormat.addInputPath(job, new Path("/user/cloudera/Oskr-erick/actions-logs.json"));
-		//System.out.println(args[0]);
+	    //FileInputFormat.addInputPath(job, new Path("resources/small-log.json"));
+
+		FileInputFormat.addInputPath(job, new Path(inputDir));
 	    FileOutputFormat.setOutputPath(job, new Path(outputDir));
-		//System.out.println(args[0]);
 	    job.setMapperClass(LetrasMaper.class);
 	    job.setReducerClass(LetrasReducer.class);
 	    job.setOutputKeyClass(Text.class);
