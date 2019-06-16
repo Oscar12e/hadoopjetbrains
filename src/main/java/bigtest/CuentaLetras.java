@@ -27,13 +27,13 @@ public class CuentaLetras extends Configured implements Tool {
 		System.out.println("Working Directory = " +
 				System.getProperty("user.dir"));
 
-		//String outputDir = System.getProperty("user.dir") + "/output/new5";
+		String outputDir = System.getProperty("user.dir") + "/output/new9";
 		//String outputDir = "/user/cloudera/Oskr-erick/output5/o";
 		//String inputDir = "/user/cloudera/Oskr-erick/small-log.json";
 
 		//Args -- Para la revisión toca usar este
 		String inputDir = args[0];
-		String outputDir = args[1];
+		//String outputDir = args[1];
 
 	    //System.out.println(args[0]);
 	    // Use TextInputFormat, the default unless job.setInputFormatClass is used
