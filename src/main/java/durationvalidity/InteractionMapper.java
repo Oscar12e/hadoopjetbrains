@@ -4,7 +4,6 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class InteractionMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
@@ -13,18 +12,10 @@ public class InteractionMapper extends Mapper<LongWritable, Text, Text, IntWrita
 
     public void map(LongWritable offset, Text lineText, Context context) {
         try{
-            JSONArray array =  new JSONArray(lineText.toString());
-            JSONObject action;
-            String date, campaign;
-
-
-            for(int i=0;i<array.length(); i++){
-                JSONObject entry = array.getJSONObject(i);//new JSONObject(tuple[i]);
-                action = entry.getJSONObject("action");
-                if (!action.has("utm"))
-                    continue;
-
-                campaign = action.getJSONObject("utm").getString("campaign");
+            JSONObject entry = new JSONObject(lineText.toString());//new JSONObject(tuple[i]);
+            JSONObject action = entry.getJSONObject("action");
+            if (action.has("utm")){
+                String campaign = action.getJSONObject("utm").getString("campaign");
                 context.write(new Text(campaign), one);
             }
         } catch (Exception e){

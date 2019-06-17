@@ -20,6 +20,7 @@ public class LetrasMaper extends Mapper<LongWritable, Text, Text, IntWritable> {
             throws IOException, InterruptedException
     {
         try{
+
             JSONArray array =  new JSONArray(lineText.toString());
 
             String post;

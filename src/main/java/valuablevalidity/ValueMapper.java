@@ -13,18 +13,11 @@ public class ValueMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     public void map(LongWritable offset, Text lineText, Context context) {
         try{
-            JSONArray array =  new JSONArray(lineText.toString());
-            JSONObject action;
-            String description, interaction;
-
-            for(int i=0;i<array.length(); i++){
-                JSONObject entry = array.getJSONObject(i);//new JSONObject(tuple[i]);
-                action = entry.getJSONObject("action");
-                if (!action.has("utm"))
-                    continue;
-
-                description = action.getString("description");
-                interaction = description.equals("like")? "like": "content";
+            JSONObject entry = new JSONObject(lineText.toString());//new JSONObject(tuple[i]);
+            JSONObject action = entry.getJSONObject("action");
+            if (action.has("utm")){
+                String description = action.getString("description");
+                String interaction = description.equals("like")? "like": "content";
 
                 context.write(new Text(action.getJSONObject("utm").getString("campaign") + "," + interaction + ","), one);
             }
