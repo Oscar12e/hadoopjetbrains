@@ -17,7 +17,6 @@ public class InteractionMapper extends Mapper<LongWritable, Text, Text, IntWrita
             JSONObject action;
             String date, campaign;
 
-            String animal;
 
             for(int i=0;i<array.length(); i++){
                 JSONObject entry = array.getJSONObject(i);//new JSONObject(tuple[i]);
@@ -26,9 +25,7 @@ public class InteractionMapper extends Mapper<LongWritable, Text, Text, IntWrita
                     continue;
 
                 campaign = action.getJSONObject("utm").getString("campaign");
-                date = entry.getString("time").split(" ")[0];
-                animal =  campaign + "," + date+","; //Csv like
-                context.write(new Text(animal), one);
+                context.write(new Text(campaign), one);
             }
         } catch (Exception e){
             System.out.println(e.toString());

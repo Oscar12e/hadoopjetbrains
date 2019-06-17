@@ -18,7 +18,6 @@ public class InterestMapper extends Mapper<LongWritable, Text, Text, IntWritable
             String campaign;
             int userId;
 
-            String animal;
 
             for(int i=0;i<array.length(); i++){
                 JSONObject entry = array.getJSONObject(i);//new JSONObject(tuple[i]);
@@ -27,8 +26,7 @@ public class InterestMapper extends Mapper<LongWritable, Text, Text, IntWritable
                     continue;
                 userId = entry.getInt("user_id");
                 campaign = action.getJSONObject("utm").getString("campaign");
-                animal = campaign + "," + userId + ",";
-                context.write(new Text(animal), one);
+                context.write(new Text(campaign + "," + userId + ","), one);
             }
         } catch (Exception e){
             System.out.println(e.toString());

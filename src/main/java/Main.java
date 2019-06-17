@@ -16,11 +16,11 @@ public class Main {
                 System.getProperty("user.dir") + "/output");
         Tool tool = null;
 
-        if (args[3].equals("-t")) //Es el tiempo valido?
+        if (args[2].equals("-t")) //Es el tiempo valido?
             tool = new InteractionCombiner();
-        else if (args[3].equals("-p")) //Mercado potencial
+        else if (args[2].equals("-p")) //Mercado potencial
             tool = new InterestCombiner();
-        else if (args[3].equals("-v")) //Mercado potencial
+        else if (args[2].equals("-v")) //Mercado potencial
             tool = new ValueCombiner();
         else{
             System.out.println("Non valid command.");

@@ -12,7 +12,7 @@ import org.apache.hadoop.util.Tool;
 public class InteractionCombiner extends Configured implements Tool {
 
     public int run(String[] args) throws Exception {
-        Job job = Job.getInstance(getConf(), "Validity Analizer - oskr_erick");
+        Job job = Job.getInstance(getConf(), "Campaign Duration Analizer - oskr_erick");
         job.setJarByClass(this.getClass());
 
         //Args -- Para la revisión toca usar este

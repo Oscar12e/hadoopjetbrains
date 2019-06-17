@@ -2,6 +2,7 @@ package potentialmarket;
 
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -12,8 +13,9 @@ import org.apache.hadoop.util.Tool;
 public class InterestCombiner extends Configured implements Tool {
 
     public int run(String[] args) throws Exception {
-        Job job = Job.getInstance(getConf(), "Validity Analizer - oskr_erick");
+        Job job = Job.getInstance(getConf(), "Potential market - oskr_erick");
         job.setJarByClass(this.getClass());
+        HBaseConfiguration.create();
 
         //Args -- Para la revisión toca usar este
         String inputDir = args[0];

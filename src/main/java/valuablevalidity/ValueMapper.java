@@ -15,9 +15,7 @@ public class ValueMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         try{
             JSONArray array =  new JSONArray(lineText.toString());
             JSONObject action;
-            String description, interaction, campaign;
-
-            String animal;
+            String description, interaction;
 
             for(int i=0;i<array.length(); i++){
                 JSONObject entry = array.getJSONObject(i);//new JSONObject(tuple[i]);
@@ -25,12 +23,10 @@ public class ValueMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
                 if (!action.has("utm"))
                     continue;
 
-                campaign = action.getJSONObject("utm").getString("campaign");
                 description = action.getString("description");
                 interaction = description.equals("like")? "like": "content";
 
-                animal = campaign + "," + interaction + "," ;
-                context.write(new Text(animal), one);
+                context.write(new Text(action.getJSONObject("utm").getString("campaign") + "," + interaction + ","), one);
             }
         } catch (Exception e){
             System.out.println(e.toString());
