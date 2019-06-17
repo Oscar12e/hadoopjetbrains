@@ -2,11 +2,10 @@
 
  */
 
-import durationvalidity.InteractionCombiner;
-import bigtest.CuentaLetras;
+import durationvalidity.DurationCombiner;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-import potentialmarket.InterestCombiner;
+import potentialmarket.MarketCombiner;
 import valuablevalidity.ValueCombiner;
 
 public class Main {
@@ -16,11 +15,11 @@ public class Main {
                 System.getProperty("user.dir") + "/output");
         Tool tool = null;
 
-        if (args[2].equals("-t")) //Es el tiempo valido?
-            tool = new InteractionCombiner();
-        else if (args[2].equals("-p")) //Mercado potencial
-            tool = new InterestCombiner();
-        else if (args[2].equals("-v")) //Mercado potencial
+        if (args[2].equals("-d")) //Es el tiempo valido?
+            tool = new DurationCombiner();
+        else if (args[2].equals("-m")) //Mercado potencial
+            tool = new MarketCombiner();
+        else if (args[2].equals("-v")) //QUe es más valioso
             tool = new ValueCombiner();
         else{
             System.out.println("Non valid command.");

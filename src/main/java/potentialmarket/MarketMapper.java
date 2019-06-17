@@ -1,22 +1,23 @@
-package durationvalidity;
+package potentialmarket;
 
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.json.JSONObject;
 
-public class InteractionMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class MarketMapper extends Mapper<LongWritable, Text, Text, FloatWritable> {
 
-    private final static IntWritable one = new IntWritable(1);
 
     public void map(LongWritable offset, Text lineText, Context context) {
         try{
-            JSONObject entry = new JSONObject(lineText.toString());//new JSONObject(tuple[i]);
+            JSONObject entry = new JSONObject(lineText.toString());
             JSONObject action = entry.getJSONObject("action");
             if (action.has("utm")){
                 String campaign = action.getJSONObject("utm").getString("campaign");
-                context.write(new Text(campaign), one);
+                float duration =  (float) action.getDouble("duration");
+                context.write(new Text(campaign + ","), new FloatWritable(duration));
             }
         } catch (Exception e){
             System.out.println(e.toString());

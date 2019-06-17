@@ -9,7 +9,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 
-public class InteractionCombiner extends Configured implements Tool {
+public class DurationCombiner extends Configured implements Tool {
 
     public int run(String[] args) throws Exception {
         Job job = Job.getInstance(getConf(), "Campaign Duration Analizer - oskr_erick");
@@ -22,8 +22,8 @@ public class InteractionCombiner extends Configured implements Tool {
         // Use TextInputFormat, the default unless job.setInputFormatClass is used
         FileInputFormat.addInputPath(job, new Path(inputDir));
         FileOutputFormat.setOutputPath(job, new Path(outputDir));
-        job.setMapperClass(InteractionMapper.class);
-        job.setReducerClass(InteractionReducer.class);
+        job.setMapperClass(DurationMapper.class);
+        job.setReducerClass(DurationReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         System.out.println("Ok so, wanna work now?");
